@@ -1,4 +1,4 @@
-package com.example.loginapputeq; // <--- ASEGÚRATE DE QUE ESTO COINCIDA CON TU NOMBRE DE PAQUETE
+package com.example.loginapputeq; 
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
