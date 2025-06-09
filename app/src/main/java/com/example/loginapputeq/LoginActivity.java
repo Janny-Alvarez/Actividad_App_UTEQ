@@ -12,12 +12,14 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
-    // Declaración de campos de entrada y botón
+    // Declaración de campos de entrada y botones
     private TextInputLayout textInputLayoutUsername;
     private TextInputEditText editTextUsername;
     private TextInputLayout textInputLayoutPassword;
     private TextInputEditText editTextPassword;
-    private Button btnIngresarLogin;
+    private Button btnAceptarLogin; // Cambiado de btnIngresarLogin
+    private Button btnCancelarLogin; // Nuevo botón
+    private Button btnAtrasLogin;    // Nuevo botón
 
     // Mapa con credenciales válidas de usuario y contraseña
     private static final Map<String, String> VALID_CREDENTIALS = new HashMap<>();
@@ -26,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     static {
         VALID_CREDENTIALS.put("Janny Alvarez", "12345");
         VALID_CREDENTIALS.put("Jennifer Delgado", "54321");
-        // Puedes agregar más usuarios así:
+        // Puedes agregar más usuarios aquí:
         // VALID_CREDENTIALS.put("Nombre Apellido", "clave");
     }
 
@@ -40,13 +42,42 @@ public class LoginActivity extends AppCompatActivity {
         editTextUsername = findViewById(R.id.editTextUsername);
         textInputLayoutPassword = findViewById(R.id.textInputLayoutPassword);
         editTextPassword = findViewById(R.id.editTextPassword);
-        btnIngresarLogin = findViewById(R.id.btnIngresarLogin);
 
-        // Configurar el botón para ejecutar la validación al hacer clic
-        btnIngresarLogin.setOnClickListener(new View.OnClickListener() {
+        // Vinculación de los botones
+        btnAceptarLogin = findViewById(R.id.btnAceptarLogin); // Usar el ID actualizado
+        btnCancelarLogin = findViewById(R.id.btnCancelarLogin); // Vincular el nuevo botón Cancelar
+        btnAtrasLogin = findViewById(R.id.btnAtrasLogin);       // Vincular el nuevo botón Atrás
+
+        // Configurar el botón ACEPTAR para ejecutar la validación al hacer clic
+        btnAceptarLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 attemptLogin(); // Ejecuta el método de validación
+            }
+        });
+
+        // Configurar el botón CANCELAR
+        btnCancelarLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Aquí puedes agregar la lógica para cancelar la acción
+                // Por ejemplo, limpiar los campos de texto o volver a una pantalla anterior.
+                editTextUsername.setText(""); // Limpiar campo de usuario
+                editTextPassword.setText(""); // Limpiar campo de contraseña
+                textInputLayoutUsername.setError(null); // Quitar errores
+                textInputLayoutPassword.setError(null); // Quitar errores
+                Toast.makeText(LoginActivity.this, "Acción cancelada", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Configurar el botón ATRÁS
+        btnAtrasLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Aquí puedes agregar la lógica para ir hacia atrás
+                // Por ejemplo, cerrar la actividad actual o navegar a la anterior.
+                Toast.makeText(LoginActivity.this, "Volviendo a la pantalla anterior...", Toast.LENGTH_SHORT).show();
+                finish(); // Cierra la actividad actual
             }
         });
     }
@@ -80,6 +111,9 @@ public class LoginActivity extends AppCompatActivity {
                 // Usuario y contraseña correctos
                 Toast.makeText(LoginActivity.this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
                 // Aquí se puede iniciar otra actividad (ej. pantalla principal)
+                // Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                // startActivity(intent);
+                // finish(); // Opcional: cierra esta actividad para que el usuario no pueda volver con el botón "atrás"
             } else {
                 // Usuario o contraseña incorrectos
                 Toast.makeText(LoginActivity.this, "Usuario o clave incorrectos", Toast.LENGTH_SHORT).show();
